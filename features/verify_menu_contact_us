@@ -1,0 +1,45 @@
+require "selenium-webdriver"
+require "rspec"
+require_relative "pages/menu_contact_us_page.rb"
+require_relative "pages/homepage.rb"
+
+menu_contact_name = "Menu Page Contact User"
+menu_email        = "email@email.com"
+menu_phone        = "01273123456"
+menu_company      = "Company Name"
+menu_message      = "This is a test contact us form message via the side menu"
+
+#Test:  Sigm up for blog
+describe "Jellyfish website" do
+  describe "complete the contact us form from menu" do
+    it "confirm that the user can complete the manin menu contact us form" do
+      @driver = Selenium::WebDriver.for :firefox
+      # Go to signup form
+      @driver.navigate.to "https://jellyfish-test.jellyfish.co.uk/"
+      #fill out and submit the form
+      menu_contact = MenuContactUsPage.new(@driver)
+      homepage = HomePage.new(@driver)
+
+      #Check if the cookie popup is present, close if it is
+      homepage.close_cookie_popup
+
+      #check if the menu is open, if not open
+      homepage.is_main_menu_open
+
+      # Fill the form in
+      menu_contact.enter_contact_us_name(menu_contact_name)
+      menu_contact.enter_contact_us_email(menu_email)
+      menu_contact.enter_contact_us_phone(menu_phone)
+      menu_contact.enter_contact_us_company_name(menu_company)
+      menu_contact.enter_message(menu_message)
+      menu_contact.select_service_checkbox
+
+      menu_contact.click_signup_checkbox
+
+      #verify that the submit button is present (not clicked)
+      menu_contact.verify_submit_button
+
+      @driver.quit
+    end
+  end
+end
