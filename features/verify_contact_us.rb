@@ -29,7 +29,6 @@ describe "Jellyfish website" do
       contact.select_service_line
       contact.enter_message(message)
       contact.click_signup_checkbox
-      contact.verify_submit_button
 
       #verify that the submit button is present (not clicked)
       contact.verify_submit_button

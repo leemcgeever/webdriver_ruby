@@ -15,8 +15,6 @@ CLOSE_COOKIE_BUTTON = {css: '.add-cookies'}
 #css error messages
 NAME_FIELD_ERROR 	= {id: 'edit-submitted-column1-name-error'}
 
-
-
 attr_reader	:driver
 
 # class method
@@ -45,9 +43,8 @@ def enter_company_name(company_name)
 end
 
 def select_service_line
-	driver.find_element(INTEREST_SELECTOR).click
-	# Insert code to select a drop down value - may need new helper method?
-	service_line = driver.find_element('li.mdl-menu__item:nth-child(2)')
+	dropdown = driver.find_element(INTEREST_SELECTOR).click
+	selection = driver.find_element(css: '.mdl-menu > li:nth-of-type(2)').click
 end
 
 def enter_message(message)
@@ -59,7 +56,7 @@ def click_signup_checkbox
 	driver.find_element(SIGN_UP_CHECKBOX).click
 end
 
-def verify_submit_button 
+def verify_submit_button
 	driver.find_element(SUBMIT_BUTTON).displayed?
 end
 
