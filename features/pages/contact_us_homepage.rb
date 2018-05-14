@@ -1,19 +1,19 @@
-class ContactPage
+class ContactUsHomePage
 
 #css selectors
-NAME_FIELD 			= {id: 'edit-submitted-column1-name'}
-EMAIL_FIELD			= {id: 'edit-submitted-column1-email'}
-PHONE_FIELD			= {id: 'edit-submitted-column1-phone'}
+NAME_FIELD 					= {id: 'edit-submitted-column1-name'}
+EMAIL_FIELD					= {id: 'edit-submitted-column1-email'}
+PHONE_FIELD					= {id: 'edit-submitted-column1-phone'}
 COMPANY_NAME_FIELD	= {id: 'edit-submitted-column1-company-name'}
-INTEREST_SELECTOR	= {id: 'contactServiceMenu'}
-MESSAGE_INPUT_BOX	= {id: 'edit-submitted-column3-message'}
-SIGN_UP_CHECKBOX	= {id: 'edit-submitted-column3-sign-up-for-jellyfish-communications-1'}
-SUBMIT_BUTTON		= {css: '.webform-submit' } #Get in touch button
-COOKIE_POPUP 		= {css: '.cookies-box'}
+INTEREST_SELECTOR		= {id: 'contactServiceMenu'}
+MESSAGE_INPUT_BOX		= {id: 'edit-submitted-column3-message'}
+SIGN_UP_CHECKBOX		= {id: 'edit-submitted-column3-sign-up-for-jellyfish-communications-1'}
+SUBMIT_BUTTON				= {css: '.webform-submit' } #Get in touch button
+COOKIE_POPUP 				= {css: '.cookies-box'}
 CLOSE_COOKIE_BUTTON = {css: '.add-cookies'}
 
 #css error messages
-NAME_FIELD_ERROR 	= {id: 'edit-submitted-column1-name-error'}
+NAME_FIELD_ERROR 		= {id: 'edit-submitted-column1-name-error'}
 
 attr_reader	:driver
 
@@ -42,7 +42,10 @@ def enter_company_name(company_name)
 	company_name_field.send_keys(company_name)
 end
 
-def select_service_line
+# The method selects the first option from the select list
+# it's item 2 on list as the first one is "Select Service" hardcoded message
+# this should be a watermark not a list option!!
+def select_service_from_list
 	dropdown = driver.find_element(INTEREST_SELECTOR).click
 	selection = driver.find_element(css: '.mdl-menu > li:nth-of-type(2)').click
 end
@@ -58,15 +61,4 @@ end
 
 def verify_submit_button
 	driver.find_element(SUBMIT_BUTTON).displayed?
-end
-
-def close_cookie_popup
-	sleep 3
-	if driver.find_element(COOKIE_POPUP).displayed?
-		then driver.find_element(CLOSE_COOKIE_BUTTON).click
-	else
-		console.log "Cookie popup not present"
-	end
-end
-
 end

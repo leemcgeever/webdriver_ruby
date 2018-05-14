@@ -1,6 +1,7 @@
 require "selenium-webdriver"
 require "rspec"
-require_relative "pages/contact_page.rb"
+require_relative "pages/contact_us_homepage.rb"
+require_relative "pages/homepage.rb"
 
 contactname   = "Contact Page User"
 email         = "email@email.com"
@@ -16,17 +17,18 @@ describe "Jellyfish website" do
       # Go to signup form
       @driver.navigate.to "https://jellyfish-test.jellyfish.co.uk/"
       #fill out and submit the form
-      contact = ContactPage.new(@driver)
+      contact = ContactUsHomePage.new(@driver)
+      homepage = HomePage.new(@driver)
 
       #Check if the cookie popup is present, close if it is
-      contact.close_cookie_popup
+      homepage.close_cookie_popup
 
       # Fill the form in
       contact.enter_contact_name(contactname)
       contact.enter_email(email)
       contact.enter_phone(phone)
       contact.enter_company_name(company_name)
-      contact.select_service_line
+      contact.select_service_from_list
       contact.enter_message(message)
       contact.click_signup_checkbox
 
